@@ -23,20 +23,17 @@
         data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" },
         class: "px-4 py-2 bg-red-600 text-white hover:bg-red-500 rounded-md font-medium" %>
   </div>
-
   <h2 class="text-2xl font-semibold mb-4">Módulos da Trilha</h2>
 
   <div class="mb-4">
-    <%= link_to "Novo Módulo", new_lesson_path(trail_id: @trail.id),
-        data: { turbo_frame: "modal" },
-        class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+    <%= link_to "Novo Módulo", new_lesson_path(trail_id: @trail.id), data: { turbo_frame: "modal" }, class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" %>
   </div>
 
   <%= turbo_frame_tag "lessons" do %>
     <% if @trail.lessons.any? %>
-      <div class="space-y-4">
-        <%= render @trail.lessons %>
-      </div>
+      <% @trail.lessons.each do |lesson| %>
+        <%= render lesson %>
+      <% end %>
     <% else %>
       <p class="text-gray-500">Nenhum módulo cadastrado ainda.</p>
     <% end %>

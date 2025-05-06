@@ -23,16 +23,16 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
 
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: "Lesson was successfully created." }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+    if @lesson.save
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.append("lessons", partial: "lessons/lesson", locals: { lesson: @lesson }) }
+        format.html { redirect_to trail_path(@lesson.trail), notice: "Módulo criado com sucesso." }
       end
+    else
+      render :new, status: :unprocessable_entity
     end
   end
+
 
   # PATCH/PUT /lessons/1 or /lessons/1.json
   def update
@@ -49,13 +49,15 @@ class LessonsController < ApplicationController
 
   # DELETE /lessons/1 or /lessons/1.json
   def destroy
-    @lesson.destroy!
+    @lesson = Lesson.find(params[:id])
+    @lesson.destroy
 
     respond_to do |format|
-      format.html { redirect_to lessons_path, status: :see_other, notice: "Lesson was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@lesson) }
+      format.html { redirect_to trail_path(@lesson.trail), notice: "Módulo excluído com sucesso." }
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
