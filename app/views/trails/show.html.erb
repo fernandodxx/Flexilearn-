@@ -1,0 +1,44 @@
+<% content_for :title, "Detalhes da Trilha" %>
+
+<div class="md:w-2/3 w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <h1 class="font-bold text-4xl mb-6"><%= @trail.title %></h1>
+  <p class="mb-8 text-gray-600"><%= @trail.description %></p>
+
+  <div class="flex flex-wrap gap-3 mb-10">
+    <%= link_to "Editar Trilha", edit_trail_path(@trail),
+        class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium" %>
+
+    <%= link_to "Voltar para Trilhas", trails_path,
+        class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md font-medium" %>
+
+    <%= button_to "Excluir Trilha", @trail,
+        method: :delete,
+        form_class: "inline",
+        data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" },
+        class: "px-4 py-2 bg-red-600 text-white hover:bg-red-500 rounded-md font-medium" %>
+  </div>
+
+  <h2 class="text-2xl font-semibold mb-4">Módulos da Trilha</h2>
+
+  <div class="mb-4">
+    <%= link_to "Novo Módulo", new_lesson_path(trail_id: @trail.id),
+        data: { turbo_frame: "modal" },
+        class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+  </div>
+
+  <%= turbo_frame_tag "lessons" do %>
+    <% if @trail.lessons.any? %>
+      <div class="space-y-4">
+        <%= render @trail.lessons %>
+      </div>
+    <% else %>
+      <p class="text-gray-500">Nenhum módulo cadastrado ainda.</p>
+    <% end %>
+  <% end %>
+</div>
