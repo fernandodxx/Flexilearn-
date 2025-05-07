@@ -3,7 +3,12 @@ class LessonsController < ApplicationController
 
   # GET /lessons or /lessons.json
   def index
-    @lessons = Lesson.all
+    if params[:trail_id].present?
+      @trail = Trail.find_by(id: params[:trail_id])
+      @lessons = @trail ? @trail.lessons : []
+    else
+      @lessons = Lesson.all.includes(:trail)
+    end
   end
 
   # GET /lessons/1 or /lessons/1.json
@@ -17,6 +22,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
+    @lesson = Lesson.find(params[:id])
   end
 
   # POST /lessons or /lessons.json
@@ -36,16 +42,17 @@ class LessonsController < ApplicationController
 
   # PATCH/PUT /lessons/1 or /lessons/1.json
   def update
-    respond_to do |format|
-      if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: "Lesson was successfully updated." }
-        format.json { render :show, status: :ok, location: @lesson }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+    if @lesson.update(lesson_params)
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to @lesson.trail, notice: "Módulo atualizado com sucesso." }
       end
+    else
+      render turbo_stream: turbo_stream.replace("modal", partial: "lesson_modal", locals: { lesson: @lesson })
     end
   end
+
+
 
   # DELETE /lessons/1 or /lessons/1.json
   def destroy

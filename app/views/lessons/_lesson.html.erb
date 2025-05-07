@@ -1,12 +1,21 @@
-<div id="<%= dom_id(lesson) %>" class="bg-white rounded-lg shadow-md p-5 my-4 border border-gray-200">
-  <h3 class="text-lg font-semibold mb-2"><%= lesson.title %></h3>
-  <p class="text-gray-700 mb-3"><%= lesson.content %></p>
-  <div class="text-sm text-gray-500">
-    <strong>Trilha:</strong> <%= lesson.trail.title %>
+<div id="<%= dom_id(lesson) %>" class="bg-white rounded-lg shadow-sm p-5 my-4 border border-gray-200">
+  <div class="mb-3">
+    <h3 class="text-xl font-semibold text-gray-800"><%= lesson.title %></h3>
+    <p class="text-gray-600 mt-1"><%= lesson.content %></p>
   </div>
-  <div class="flex flex-col sm:flex-row gap-2">
-    <%= link_to "Editar", edit_lesson_path(lesson), data: { turbo_frame: "modal" }, class: "bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 text-sm" %>
 
-    <%= button_to "Excluir", lesson_path(lesson), method: :delete, data: { turbo_confirm: "Tem certeza que deseja excluir este módulo?" }, class: "bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm" %>
+  <p class="text-sm text-gray-500 mb-4">
+    <strong>Trilha:</strong> <%= lesson.trail.title %>
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-2">
+    <%= link_to "Editar", edit_lesson_path(lesson),
+        data: { turbo_frame: "modal" },
+        class: "bg-yellow-500 text-white px-4 py-2 rounded-md text-sm hover:bg-yellow-600 transition" %>
+
+    <%= button_to "Excluir", lesson_path(lesson),
+        method: :delete,
+        data: { turbo_confirm: "Tem certeza que deseja excluir este módulo?" },
+        class: "bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700 transition" %>
   </div>
 </div>
