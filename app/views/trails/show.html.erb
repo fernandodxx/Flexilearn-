@@ -1,53 +1,97 @@
 <% content_for :title, "Detalhes da Trilha" %>
 
-<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg animate-fade-in">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-flex items-center gap-2" id="notice">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
       <%= notice %>
     </p>
   <% end %>
 
-  <h1 class="font-bold text-4xl text-gray-800 mb-4"><%= @trail.title %></h1>
+  <h1 class="font-bold text-4xl text-gray-800 mb-4 flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+    <%= @trail.title %>
+  </h1>
+
+  <% if @trail.cover_image.attached? %>
+    <div class="mb-6 overflow-hidden rounded-lg shadow-md">
+      <%= image_tag @trail.cover_image.variant(resize_to_limit: [800, 400]), class: "w-full object-cover transition-transform hover:scale-105 duration-300 ease-in-out" %>
+    </div>
+  <% end %>
+
   <p class="text-lg text-gray-600 mb-8"><%= @trail.description %></p>
 
   <div class="flex items-center gap-4 mb-8">
-    <%= link_to "Editar", edit_trail_path(@trail), 
-        class: "bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition" %>
+    <%= link_to edit_trail_path(@trail), class: "inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h2m-1 0v14m-7-4h14" />
+      </svg>
+      Editar
+    <% end %>
 
-    <%= link_to "Voltar", trails_path, 
-        class: "text-blue-600 hover:text-blue-800 font-medium" %>
+    <%#= link_to "Voltar", trails_path, class: "text-blue-600 hover:text-blue-800 font-medium transition" %>
 
-    <%= button_to "Excluir", @trail,
-        method: :delete,
-        form_class: "inline",
+    <%= button_to @trail, method: :delete,
         data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" },
-        class: "px-5 py-2 bg-red-600 text-white hover:bg-red-500 rounded-md font-medium transition" %>
+        form_class: "inline",
+        class: "inline-flex items-center gap-2 px-5 py-2 bg-red-600 text-white hover:bg-red-500 rounded-md font-medium transition" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+      Excluir
+    <% end %>
   </div>
 
-  <h2 class="text-2xl font-semibold text-gray-800 mb-6">Módulos da Trilha</h2>
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h2l1 2h13l1-2h2" />
+    </svg>
+    Módulos da Trilha
+  </h2>
 
-  <div class="mb-4">
-    <%= link_to "Adicionar Novo Módulo", new_lesson_path(trail_id: @trail.id), 
-        data: { turbo_frame: "modal" }, class: "bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition" %>
+  <div class="mb-6">
+    <%= link_to new_lesson_path(trail_id: @trail.id), data: { turbo_frame: "modal" }, class: "inline-flex items-center gap-2 bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+        Adicionar Novo Módulo
+    <% end %>
   </div>
 
   <%= turbo_frame_tag "lessons" do %>
     <% if @trail.lessons.any? %>
       <div class="space-y-4">
         <% @trail.lessons.each do |lesson| %>
-          <div class="flex justify-between items-center bg-gray-100 p-4 rounded-lg">
+          <div class="flex justify-between items-start bg-gray-100 p-4 rounded-lg hover:shadow transition">
             <div class="flex-1">
-              <strong class="text-gray-700"><%= lesson.title %></strong>
-              <p class="text-gray-500 text-sm"><%= lesson.content %></p>
+              <h3 class="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <%= lesson.title %>
+              </h3>
+              <div class="text-gray-600 text-sm">
+                <%= simple_format(lesson.content) %>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <%= link_to "Editar", edit_lesson_path(lesson), 
-                  class: "text-blue-600 hover:text-blue-800" %>
+            <div class="flex items-start gap-2 ml-4">
+              <%= link_to edit_lesson_path(lesson), class: "text-blue-600 hover:text-blue-800" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6 6m0 0h6v-6" />
+                </svg>
+              <% end %>
 
-              <%= button_to "Excluir", lesson, 
-                  method: :delete, 
+              <%= button_to lesson, method: :delete,
                   data: { turbo_confirm: "Tem certeza que deseja excluir este módulo?" },
-                  class: "text-red-600 hover:text-red-800" %>
+                  class: "text-red-600 hover:text-red-800" do %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              <% end %>
             </div>
           </div>
         <% end %>

@@ -65,6 +65,6 @@ class TrailsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trail_params
-      params.expect(trail: [ :title, :description, :user_id ])
+      params.expect(trail: [ :title, :description, :user_id, :cover_image ])
     end
 end

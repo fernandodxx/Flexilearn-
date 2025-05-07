@@ -1,5 +1,8 @@
 <div id="<%= dom_id trail %>" class="space-y-3">
-  <div class="flex items-center justify-between">
+  <% if trail.cover_image.attached? %>
+      <%= image_tag trail.cover_image.variant(resize_to_limit: [800, 400]), class: "w-full h-48 object-cover rounded-lg" %>
+  <% end %>
+  <div class="flex items-center justify-between mb-2">
     <h2 class="text-xl font-semibold text-gray-800">
       <%= trail.title %>
     </h2>

@@ -18,10 +18,12 @@
         <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 flex flex-col justify-between gap-4">
           <%= render trail %>
 
-          <div class="flex flex-col sm:flex-row justify-end gap-2">
-            <%= link_to "Visualizar", trail, class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm font-medium text-center" %>
-            <%= link_to "Editar", edit_trail_path(trail), class: "px-4 py-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded-md text-sm font-medium text-center" %>
-            <%= button_to "Excluir", trail, method: :delete, class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium text-center", data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" } %>
+          <div class="flex flex-wrap justify-end gap-2 pt-2 border-t border-gray-100">
+            <%= link_to "Visualizar", trail, class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm font-medium" %>
+            <%= link_to "Editar", edit_trail_path(trail), class: "px-4 py-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded-md text-sm font-medium" %>
+            <%= button_to "Excluir", trail, method: :delete,
+                                     class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium",
+                                     data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" } %>
           </div>
         </div>
       <% end %>
