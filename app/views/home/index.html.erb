@@ -1,0 +1,68 @@
+<% content_for :title, "Home" %>
+
+<div class="bg-gray-50 min-h-screen py-10 px-5 sm:px-10">
+  <div class="max-w-6xl mx-auto">
+    <!-- Cabeçalho -->
+    <header class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo ao FlexiLearn</h1>
+      <p class="text-lg text-gray-600">Sua plataforma para aprender e crescer profissionalmente com módulos e trilhas personalizadas.</p>
+    </header>
+
+    <!-- Seção de Funcionalidades -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      <!-- Funcionalidade 1 -->
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+        <div class="flex items-center justify-center bg-green-500 text-white w-14 h-14 rounded-full mb-4">
+          <i class="fas fa-book text-xl"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Trilhas de Aprendizado</h2>
+        <p class="text-gray-600 mb-4">Explore trilhas personalizadas com módulos focados em suas áreas de interesse.</p>
+        <%= link_to "Ver Trilhas", trails_path, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+      </div>
+
+      <!-- Funcionalidade 2 -->
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+        <div class="flex items-center justify-center bg-blue-600 text-white w-14 h-14 rounded-full mb-4">
+          <i class="fas fa-chalkboard-teacher text-xl"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Módulos Interativos</h2>
+        <p class="text-gray-600 mb-4">Aprenda com módulos interativos e adquira novas habilidades no seu ritmo.</p>
+        <%= link_to "Ver Módulos", lessons_path, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+      </div>
+
+      <!-- Funcionalidade 3 -->
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+        <div class="flex items-center justify-center bg-yellow-400 text-white w-14 h-14 rounded-full mb-4">
+          <i class="fas fa-trophy text-xl"></i>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Sua Jornada</h2>
+        <p class="text-gray-600 mb-4">Acompanhe seu progresso e conquiste novos marcos à medida que avança.</p>
+        <%#= link_to "Minha Jornada", user_dashboard_path, class: "text-blue-600 hover:text-blue-800 font-medium" %>
+      </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section class="bg-gray-100 py-12 mb-20 rounded-xl">
+      <h2 class="text-3xl font-semibold text-center text-gray-800 mb-10">O que nossos alunos dizem</h2>
+      <div class="flex flex-col sm:flex-row justify-center gap-8 px-4">
+        <div class="bg-white p-6 rounded-lg shadow-md max-w-sm mx-auto">
+          <p class="text-gray-600 mb-4">"A FlexiLearn me ajudou a melhorar minhas habilidades em programação. As trilhas são práticas e bem organizadas!"</p>
+          <p class="font-semibold text-gray-800">João Silva</p>
+          <p class="text-gray-500 text-sm">Desenvolvedor Web</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md max-w-sm mx-auto">
+          <p class="text-gray-600 mb-4">"Uma plataforma incrível! O conteúdo é muito bom e o progresso é bem monitorado."</p>
+          <p class="font-semibold text-gray-800">Maria Oliveira</p>
+          <p class="text-gray-500 text-sm">Designer Gráfico</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chamada para Ação -->
+    <div class="text-center">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-4">Pronto para começar?</h2>
+      <p class="text-lg text-gray-600 mb-6">Junte-se a nós e inicie sua jornada de aprendizado agora mesmo!</p>
+      <%= link_to "Cadastrar-se", new_session_path, class: "bg-blue-600 text-white px-8 py-3 rounded-md text-lg hover:bg-blue-700 transition" %>
+    </div>
+  </div>
+</div>
