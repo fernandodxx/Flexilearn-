@@ -1,6 +1,7 @@
 <% content_for :title, "Trilhas" %>
 
 <div class="w-full max-w-5xl mx-auto">
+  <%= render "shared/breadcrumbs", trail: @trail %>
   <% if notice.present? %>
     <p class="py-2 px-4 bg-green-50 text-green-600 font-medium rounded-md mb-6 border border-green-100">
       <%= notice %>
@@ -8,7 +9,6 @@
   <% end %>
 
   <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-    <h1 class="text-4xl font-bold text-gray-800">Trilhas</h1>
     <%= link_to "Nova trilha", new_trail_path, class: "bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-md font-medium transition" %>
   </div>
 
@@ -17,14 +17,6 @@
       <% @trails.each do |trail| %>
         <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 flex flex-col justify-between gap-4">
           <%= render trail %>
-
-          <div class="flex flex-wrap justify-end gap-2 pt-2 border-t border-gray-100">
-            <%= link_to "Visualizar", trail, class: "px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm font-medium" %>
-            <%= link_to "Editar", edit_trail_path(trail), class: "px-4 py-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded-md text-sm font-medium" %>
-            <%= button_to "Excluir", trail, method: :delete,
-                                     class: "px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium",
-                                     data: { turbo_confirm: "Tem certeza que deseja excluir esta trilha?" } %>
-          </div>
         </div>
       <% end %>
     </div>

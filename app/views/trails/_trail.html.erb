@@ -4,7 +4,7 @@
   <% end %>
   <div class="flex items-center justify-between mb-2">
     <h2 class="text-xl font-semibold text-gray-800">
-      <%= trail.title %>
+      <%= link_to trail.title, trail %>
     </h2>
 
     <% if trail.lessons.any? %>
