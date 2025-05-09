@@ -1,0 +1,35 @@
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <!-- Logo / Nome -->
+    <%= link_to root_path, class: "text-2xl font-bold text-blue-600 hover:text-blue-700 transition" do %>
+      FlexiLearn
+    <% end %>
+
+    <!-- Navegação -->
+    <nav class="hidden md:flex items-center space-x-6 text-sm text-gray-700">
+      <%= link_to "Trilhas", trails_path, class: "hover:text-blue-600 font-medium transition" %>
+      <%# Adicione mais links conforme necessário %>
+    </nav>
+
+    <!-- Ações -->
+    <div class="hidden md:flex items-center space-x-4">
+      <% if authenticated? %>
+        <span class="text-sm text-gray-600">Olá, <%= Current.user.email_address %></span>
+        <%= button_to "Log out", session_path, method: :delete, class: "text-sm text-red-500 hover:text-red-700" %>
+      <% else %>
+        <%= link_to "Entrar", new_session_path, class: "text-sm text-blue-600 hover:text-blue-700" %>
+      <% end %>
+    </div>
+
+    <!-- Mobile Menu (exemplo simples, sem JS ainda) -->
+    <div class="md:hidden">
+      <button type="button" class="text-gray-600 hover:text-blue-600 focus:outline-none">
+        <!-- Ícone hamburguer -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
