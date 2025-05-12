@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "home/index"
+  resources :users, only: %i[ edit show update ]
   resources :lessons
   resources :trails
   resource :session
