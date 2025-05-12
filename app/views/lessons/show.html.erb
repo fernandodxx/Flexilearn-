@@ -16,6 +16,11 @@
     <div class="text-sm text-gray-500 mb-6">
       <strong>Trilha:</strong> <%= @lesson.trail.title %>
     </div>
+    <% if Current.user.lesson_progresses.exists?(lesson: @lesson, completed: true) %>
+      <p class="text-green-600 font-semibold">Concluído ✔️</p>
+    <% else %>
+      <%= button_to 'Marcar como concluído', complete_lesson_path(@lesson), method: :post, class: "btn" %>
+    <% end %>
 
     <div class="flex items-start ">
       <%= link_to edit_lesson_path(@lesson),

@@ -18,4 +18,9 @@ class SessionsController < ApplicationController
     terminate_session
     redirect_to new_session_path
   end
+
+  def complete
+    current_user.lesson_progresses.find_or_create_by(lesson: @lesson).update(completed: true)
+    redirect_to @lesson, notice: "Lição marcada como concluída!"
+  end
 end
