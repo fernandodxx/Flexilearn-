@@ -1,0 +1,5 @@
+document.getElementById("favorite-button-<%= @trail.id %>").innerHTML = `
+  <a data-method="delete" data-remote="true" rel="nofollow" href="<%= unfavorite_trail_path(@trail) %>" class="text-yellow-500 hover:text-yellow-600">
+    ★ Favoritado
+  </a>
+`;

@@ -4,8 +4,14 @@ class User < ApplicationRecord
   has_many :trails, dependent: :destroy
   has_many :lesson_progresses
   has_many :completed_lessons, through: :lesson_progresses, source: :lesson
+  has_many :favorites
+  has_many :favorite_trails, through: :favorites, source: :trail
   has_one_attached :avatar
   normalizes :email_address, with: ->(e) { e.strip.downcase }
+
+  def favorited?(trail)
+    favorites.exists?(trail_id: trail.id)
+  end
 
   def progress_for(trail)
     total = trail.lessons.count

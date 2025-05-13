@@ -47,6 +47,20 @@ class TrailsController < ApplicationController
     end
   end
 
+  def favorite
+    current_user.favorites.find_or_create_by(trail: @trail)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unfavorite
+    current_user.favorites.where(trail: @trail).destroy_all
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # DELETE /trails/1 or /trails/1.json
   def destroy
     @trail.destroy!

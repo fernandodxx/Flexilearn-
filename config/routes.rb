@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resources :lessons do
-    post 'complete', on: :member
+    post "complete", on: :member
   end
+  resources :trails do
+    post "favorite", to: "favorites#create"
+    delete "unfavorite", to: "favorites#destroy"
+  end
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -65,6 +65,10 @@ class LessonsController < ApplicationController
     end
   end
 
+  def complete
+    Current.user.lesson_progresses.find_or_create_by(lesson: @lesson).update(completed: true)
+    redirect_to :lesson, notice: "Lição marcada como concluída!"
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
